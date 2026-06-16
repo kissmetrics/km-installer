@@ -88,13 +88,13 @@ Restart Claude Code, or begin a new session, so the skill can be loaded.
 ## Using the Skill
 
 From within your project, ask Claude:
-
-> Install KISSmetrics in this project
-
+```bash
+Install KISSmetrics in this project
+```
 Or invoke the skill directly:
-
-> /km-installer
-
+```bash
+/km-installer
+```
 Have your **KISSmetrics product key** available. You can find it in the KISSmetrics dashboard under your product's tracking settings. Claude will request it before starting the installation.
 
 ## Requirements
