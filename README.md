@@ -23,13 +23,14 @@ and opens a review branch for your team. Nothing is deployed without your develo
 
 ## Install the skill
 
-The skill lives at [`skills/km-installer/SKILL.md`](skills/km-installer/SKILL.md).
+The skill lives at [`skills/SKILL.md`](skills/SKILL.md). Claude Code loads skills from
+`.claude/skills/<name>/SKILL.md`, so copy it into a folder named `km-installer`.
 
 **Option 1 — copy just the skill file (quickest):**
 ```bash
 # into the current project only:
 mkdir -p .claude/skills/km-installer
-curl -sL https://raw.githubusercontent.com/<your-org>/km-installer/main/skills/km-installer/SKILL.md \
+curl -sL https://raw.githubusercontent.com/<your-org>/km-installer/main/skills/SKILL.md \
   -o .claude/skills/km-installer/SKILL.md
 ```
 
@@ -37,15 +38,11 @@ curl -sL https://raw.githubusercontent.com/<your-org>/km-installer/main/skills/k
 ```bash
 git clone https://github.com/<your-org>/km-installer.git
 # all your projects:
-cp -r km-installer/skills/km-installer ~/.claude/skills/
+mkdir -p ~/.claude/skills/km-installer
+cp km-installer/skills/SKILL.md ~/.claude/skills/km-installer/SKILL.md
 # or just this project:
-cp -r km-installer/skills/km-installer .claude/skills/
-```
-
-**Option 3 — run the bundled installer** (from a clone of this repo):
-```bash
-./install.sh            # installs globally to ~/.claude/skills/km-installer
-./install.sh .claude    # installs into the current project's .claude/skills/
+mkdir -p .claude/skills/km-installer
+cp km-installer/skills/SKILL.md .claude/skills/km-installer/SKILL.md
 ```
 
 Then restart Claude Code (or start a new session) so it picks up the skill.
