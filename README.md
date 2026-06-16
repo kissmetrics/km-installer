@@ -1,77 +1,111 @@
-# km-installer — KISSmetrics install skill for Claude
+# km-installer — KISSmetrics Installation Skill for Claude
 
-A Claude skill that installs **KISSmetrics** analytics into your project — on any stack — and
-helps you start tracking. You point Claude at your repo, it detects your framework, drops the
-KISSmetrics snippet in the right file with your key pre-filled, optionally wires up custom events,
-and opens a review branch for your team. Nothing is deployed without your developers' approval.
+A Claude skill that installs **KISSmetrics** analytics into your project on virtually any stack and helps you start tracking immediately.
 
-## What it does
+Point Claude at your repository, and it will detect your framework, add the KISSmetrics snippet in the correct location with your product key pre-filled, optionally wire up custom events, and create a review branch for your team. Nothing is deployed without developer approval.
 
-1. **Detects your stack** by reading the repo (Next.js, React, Vue, Angular, Node, PHP/Laravel,
-   Django/Flask, Rails, Go, .NET, Elixir, static HTML, WordPress/Shopify themes) — and confirms
-   with you when detection is ambiguous.
-2. **Installs the snippet** — the hosted KISSmetrics JS SDK — in the correct layout/head file,
-   pre-filled with your product key. Page views start tracking automatically; there's no separate
-   library to install.
-3. **Sets up custom events** (optional) — business actions like *Signed Up* / *Purchased* via the
-   `_kmq` API, placed at the right point in your code (idiomatically per stack, with values safely
-   escaped).
-4. **Opens a `feat/km_snippet` branch** with the changes, committed and ready for your team to
-   review and merge. It never merges or deploys on its own.
-5. **Helps you verify** — including checking that your product's compiled SDK actually loads, so
-   you don't get a silent "installed but no data" failure.
+## What It Does
 
-## Install the skill
+### 1. Detects Your Stack
 
-The skill lives at [`skills/SKILL.md`](skills/SKILL.md). Claude Code loads skills from
-`.claude/skills/<name>/SKILL.md`, so copy it into a folder named `km-installer`.
+Claude analyzes your repository to identify the framework or platform you're using, including:
 
-**Option 1 — copy just the skill file (quickest):**
+* Next.js
+* React
+* Vue
+* Angular
+* Node.js
+* PHP / Laravel
+* Django / Flask
+* Ruby on Rails
+* Go
+* .NET
+* Elixir
+* WordPress
+* Shopify themes
+
+If detection is unclear, Claude asks for confirmation before making any changes.
+
+### 2. Installs the KISSmetrics Snippet
+
+Claude adds the hosted KISSmetrics JavaScript SDK to the appropriate layout or head file and pre-fills it with your product key.
+
+Page views begin tracking automatically. No additional package installation is required.
+
+### 3. Sets Up Custom Events (Optional)
+
+Claude can also add business-specific tracking events such as:
+
+* Signed Up
+* Purchased
+* Started Trial
+* Completed Onboarding
+
+Events are implemented using the `_kmq` API and inserted at the appropriate location in your codebase using conventions that match your framework. Event values are safely escaped and handled correctly.
+
+### 4. Creates a Review Branch
+
+Claude creates a `feat/km_snippet` branch containing all changes, commits them, and leaves everything ready for review.
+
+It never merges, deploys, or modifies production systems on its own.
+
+### 5. Helps You Verify the Installation
+
+Claude guides you through validating the setup, including confirming that your product's compiled SDK loads correctly so you avoid "installed but no data" issues.
+
+## Installing the Skill
+
+The skill is located at `skills/SKILL.md`.
+
+Claude Code loads skills from `.claude/skills/<name>/SKILL.md`, so copy the file into a folder named `km-installer`.
+
+### Option 1: Copy Only the Skill File
+
+For the current project:
+
 ```bash
-# into the current project only:
 mkdir -p .claude/skills/km-installer
 curl -sL https://raw.githubusercontent.com/kissmetrics/km-installer/main/skills/SKILL.md \
   -o .claude/skills/km-installer/SKILL.md
 ```
 
-**Option 2 — clone the repo, then copy in:**
+### Option 2: Clone the Repository First
+
 ```bash
 git clone https://github.com/kissmetrics/km-installer.git
-# all your projects:
+
+# Install for all projects
 mkdir -p ~/.claude/skills/km-installer
 cp km-installer/skills/SKILL.md ~/.claude/skills/km-installer/SKILL.md
-# or just this project:
+
+# Or install for the current project only
 mkdir -p .claude/skills/km-installer
 cp km-installer/skills/SKILL.md .claude/skills/km-installer/SKILL.md
 ```
 
-Then restart Claude Code (or start a new session) so it picks up the skill.
+Restart Claude Code, or begin a new session, so the skill can be loaded.
 
-## Use it
+## Using the Skill
 
-From inside your project, just ask Claude:
+From within your project, ask Claude:
 
 > Install KISSmetrics in this project
 
-or run the skill directly:
+Or invoke the skill directly:
 
 > /km-installer
 
-Have your **KISSmetrics product key** ready (find it in the KISSmetrics dashboard under your
-product's tracking settings) — Claude will ask for it first.
+Have your **KISSmetrics product key** available. You can find it in the KISSmetrics dashboard under your product's tracking settings. Claude will request it before starting the installation.
 
-## What you'll need
+## Requirements
 
-- A KISSmetrics account and **product key**.
-- A git repo (so Claude can put the changes on a review branch).
-- A few minutes to review the branch and merge it.
+* A KISSmetrics account with a valid product key
+* A Git repository so Claude can create a review branch
+* A few minutes to review and approve the changes
 
 ## Notes
 
-- The snippet is browser-side, so it works regardless of your backend language — only *where* it
-  goes changes per framework.
-- For **WordPress** and **Shopify**, the easiest path is usually the official plugin/app rather
-  than editing code; Claude will point this out and let you choose.
-- Claude always opens a branch for review — your developers approve and merge. It will not deploy.
-- No secrets are stored in this repo or the skill: your product key is requested at install time,
-  never committed here.
+* The KISSmetrics snippet runs in the browser, so it works independently of your backend language. The installation location varies by framework.
+* For WordPress and Shopify, the official plugin or app is often the simplest option. Claude will explain the alternatives and let you choose.
+* Claude always creates a branch for review. Your team remains in control of approving, merging, and deploying changes.
+* No secrets are stored in this repository or in the skill itself. Your product key is requested during installation and is never committed to this project.
