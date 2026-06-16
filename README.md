@@ -30,13 +30,13 @@ The skill lives at [`skills/SKILL.md`](skills/SKILL.md). Claude Code loads skill
 ```bash
 # into the current project only:
 mkdir -p .claude/skills/km-installer
-curl -sL https://raw.githubusercontent.com/<your-org>/km-installer/main/skills/SKILL.md \
+curl -sL https://raw.githubusercontent.com/kissmetrics/km-installer/main/skills/SKILL.md \
   -o .claude/skills/km-installer/SKILL.md
 ```
 
 **Option 2 — clone the repo, then copy in:**
 ```bash
-git clone https://github.com/<your-org>/km-installer.git
+git clone https://github.com/kissmetrics/km-installer.git
 # all your projects:
 mkdir -p ~/.claude/skills/km-installer
 cp km-installer/skills/SKILL.md ~/.claude/skills/km-installer/SKILL.md
